@@ -1,0 +1,10 @@
+{% extends 'base.html'%}
+{%block content%}
+<h2>Books</h2>
+<ul>
+    {% for r in bookList%}
+    <li><a href="{% url 'detail' id=r.id%}">{{r.bookTitle}}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

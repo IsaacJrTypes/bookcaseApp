@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Genre,Author,Book
 
 # Create your views here.
@@ -12,3 +12,11 @@ def genres(request):
 def authors(request):
     authorList=Author.objects.all()
     return render(request,'bookcase/authors.html',{'authorList':authorList})
+
+def books(request):
+    bookList=Book.objects.all()
+    return render(request,'bookcase/books.html',{'bookList':bookList})
+
+def bookDetails(request,id):
+    book=get_object_or_404(Book,pk=id)
+    return render(request,'bookcase/bookdetails.html',{'book':book})
