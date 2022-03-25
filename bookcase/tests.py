@@ -1,5 +1,6 @@
 from django.test import TestCase
 from .models import Genre,Author,Book
+from .forms import GenreForm,AuthorForm,BookForm
 # Create your tests here.
 class GenreTest(TestCase):
     def setup(self):
@@ -40,3 +41,35 @@ class BookTest(TestCase):
     def test_table(self):
         self.assertEqual(str(Book._meta.db_table),'book')
 
+class NewGenreForm(TestCase):
+    def test_genreForm(self):
+        data={
+            'genreName':'testing',
+            'genreDescription':'test desc'
+            }
+        form=GenreForm(data)
+        self.assertTrue(form.is_valid)
+
+class NewAuthorForm(TestCase):
+    def test_authorForm(self):
+        data={
+            'AuthorName':'testing',
+            'authorNotes':'test notes',
+            'genreName': 'test'
+            }
+        form=AuthorForm(data)
+        self.assertTrue(form.is_valid)
+
+class NewBookForm(TestCase):
+    def test_bookForm(self):
+        data={
+            'bookTitle':'testing',
+            'genreName':'test notes',
+            'authorName': 'test',
+            'pages': '200',
+            'startDate': 'test',
+            'endDate': 'test',
+            'bookNotes': 'test'
+            }
+        form=BookForm(data)
+        self.assertTrue(form.is_valid)
