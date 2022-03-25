@@ -1,6 +1,8 @@
 from django.test import TestCase
 from .models import Genre,Author,Book
 from .forms import GenreForm,AuthorForm,BookForm
+from django.urls import reverse_lazy,reverse
+from django.contrib.auth.models import User
 # Create your tests here.
 class GenreTest(TestCase):
     def setup(self):
@@ -73,3 +75,15 @@ class NewBookForm(TestCase):
             }
         form=BookForm(data)
         self.assertTrue(form.is_valid)
+
+class New_Genre_Authenticaiton_Test(TestCase):
+    def setup(self):
+        self.test_user=User.objects.create_user(username='anon1',password='Testing123')
+        self.genre=Genre.objects.create(
+            genreName = 'test title',
+            genreDescription = 'I put info here'
+        )
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('newgenre'))
+        self.assertRedirects(response,'/accounts/login/?next=/bookcase/newgenre/')
