@@ -87,3 +87,33 @@ class New_Genre_Authenticaiton_Test(TestCase):
     def test_redirect_if_not_logged_in(self):
         response = self.client.get(reverse('newgenre'))
         self.assertRedirects(response,'/accounts/login/?next=/bookcase/newgenre/')
+
+class New_Author_Authenticaiton_Test(TestCase):
+    def setup(self):
+        self.test_user=User.objects.create_user(username='anon1',password='Testing123')
+        self.author=Author.objects.create(
+            authorName = 'test title',
+            authorNotes = 'Notes here',
+            genreName= Genre(genreName='genre test')
+        )
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('newauthor'))
+        self.assertRedirects(response,'/accounts/login/?next=/bookcase/newauthor/')
+
+class New_Book_Authenticaiton_Test(TestCase):
+    def setup(self):
+        self.test_user=User.objects.create_user(username='anon1',password='Testing123')
+        self.book=Book.objects.create(
+            bookTitle = 'test title',
+            genreName= Genre(genreName='genre test'),
+            authorName=Author(authorName='author test'),
+            pages='100',
+            startDate='01/01/2022',
+            endDate='01/02/2022',
+            booknotes='notes notes notes'
+        )
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('newbook'))
+        self.assertRedirects(response,'/accounts/login/?next=/bookcase/newbook/')
