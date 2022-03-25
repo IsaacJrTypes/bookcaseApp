@@ -67,8 +67,8 @@ class NewBookForm(TestCase):
             'genreName':'test notes',
             'authorName': 'test',
             'pages': '200',
-            'startDate': 'test',
-            'endDate': 'test',
+            'startDate': '01/01/2022',
+            'endDate': '01/02/2022',
             'bookNotes': 'test'
             }
         form=BookForm(data)

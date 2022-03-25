@@ -9,4 +9,6 @@ urlpatterns = [
     path('newgenre/', views.newGenre, name='newgenre'),
     path('newauthor/', views.newAuthor, name='newauthor'),
     path('newbook/', views.newBook, name='newbook'),
+    path('loginmessage/', views.loginmessage, name='loginmessage'),
+    path('logoutmessage/', views.logoutmessage, name='logoutmessage'),
 ]

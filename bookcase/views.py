@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Genre,Author,Book
 from .forms import GenreForm,AuthorForm,BookForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
 	return render(request, 'bookcase/index.html')
@@ -21,6 +22,7 @@ def bookDetails(request,id):
     book=get_object_or_404(Book,pk=id)
     return render(request,'bookcase/bookdetails.html',{'book':book})
 
+@login_required
 def newGenre(request):
 	form=GenreForm
 
@@ -34,6 +36,7 @@ def newGenre(request):
 		form=GenreForm()
 	return render(request, 'bookcase/newgenre.html', {'form':form})
 
+@login_required
 def newAuthor(request):
 	form=AuthorForm
 
@@ -47,6 +50,7 @@ def newAuthor(request):
 		form=AuthorForm()
 	return render(request, 'bookcase/newauthor.html', {'form':form})
 
+@login_required
 def newBook(request):
 	form=BookForm
 
@@ -60,3 +64,8 @@ def newBook(request):
 		form=BookForm()
 	return render(request, 'bookcase/newbook.html', {'form':form})
 
+def loginmessage(request):
+	return render(request,'bookcase/loginmessage.html')
+
+def logoutmessage(request):
+	return render(request,'bookcase/logoutmessage.html')
