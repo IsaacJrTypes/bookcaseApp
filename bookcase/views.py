@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Genre,Author,Book
-
+from .forms import GenreForm,AuthorForm,BookForm
 # Create your views here.
 def index(request):
 	return render(request, 'bookcase/index.html')
@@ -20,3 +20,43 @@ def books(request):
 def bookDetails(request,id):
     book=get_object_or_404(Book,pk=id)
     return render(request,'bookcase/bookdetails.html',{'book':book})
+
+def newGenre(request):
+	form=GenreForm
+
+	if request.method=='POST':
+		form=GenreForm(request.POST)
+		if form.is_valid():
+			post=form.save(commit=True)
+			post.save()
+			form=GenreForm
+	else:
+		form=GenreForm()
+	return render(request, 'bookcase/newgenre.html', {'form':form})
+
+def newAuthor(request):
+	form=AuthorForm
+
+	if request.method=='POST':
+		form=AuthorForm(request.POST)
+		if form.is_valid():
+			post=form.save(commit=True)
+			post.save()
+			form=AuthorForm
+	else:
+		form=AuthorForm()
+	return render(request, 'bookcase/newauthor.html', {'form':form})
+
+def newBook(request):
+	form=BookForm
+
+	if request.method=='POST':
+		form=BookForm(request.POST)
+		if form.is_valid():
+			post=form.save(commit=True)
+			post.save()
+			form=BookForm
+	else:
+		form=BookForm()
+	return render(request, 'bookcase/newbook.html', {'form':form})
+
