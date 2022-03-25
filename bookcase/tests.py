@@ -15,7 +15,8 @@ class GenreTest(TestCase):
 
 class AuthorTest(TestCase):
     def setup(self):
-        author=Author(authorName='author test', authorNotes='author test')
+        genre=Genre(genreName='genre test')
+        author=Author(authorName='author test', authorNotes='author test',genreName=genre)
         return author
 
     def test_string(self):
